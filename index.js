@@ -34,7 +34,6 @@ class Model {
             description: description,
             strikeDate: this.defineStrikeDate(strikeDate),
             priority: priority,
-            // status: this.defineStatus(),
             remainingTime: this.calculateRemainingTime(strikeDate)
         }
 
@@ -189,17 +188,35 @@ class Model {
             el.priority.toString().toLowerCase().includes(searchTerm))
             .map(field => field.id)  
     }
+
+    
 }
 
 class View {
-
-}
-
-class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
     }
+
+    createElement(tag, className) {
+        const element = document.createElement(tag)
+        if (className) element.classList.add(className)
+
+        return element
+    }
+
+    getElement(selector) {
+        const element = document.querySelector(selector)
+
+        return element
+    }
+
+    
+
+}
+
+class Controller {
+
 }
 
 const app = new Controller(new Model, new View)
