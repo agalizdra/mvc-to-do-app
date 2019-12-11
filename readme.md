@@ -1,6 +1,6 @@
 # My first implementation of a to-do app using MVC-pattern
 
-It is a simple to-do app for managing tasks and reminders with an implemented logic of adding, deleting, toggling, and sorting entires. 
+It is a simple to-do app coded in native JS for managing tasks and reminders with an implemented logic of adding, deleting, toggling, and sorting entires. 
 
 The following version comes up with `Model` entity implemented, while `View` and `Controller` classes are yet to be coded as well as the UI.
 
