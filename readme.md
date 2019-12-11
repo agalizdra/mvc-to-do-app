@@ -14,5 +14,5 @@ The following version comes up with `Model` entity implemented, while `View` and
 - Scanning tasks/reminders to find the user input
 - Changing the status of a task
 
-The repository ships with a simple instance of a Mongo client, which I plan to integrate to an app while hosting it on a Heroku server.
+I plan to integratean an app to the Mongo DB and host it on a Heroku VPS.
 
