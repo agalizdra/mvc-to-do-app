@@ -1,8 +1,12 @@
+// Internal logic of the to-do app described by the Model
+
 class Model {
     constructor() {
         this.tasks = [];
         this.reminders = [];
     }
+
+    // Adds a single task to a dashboard
 
     addTask(description, workload, place) {
         const task = {
@@ -17,15 +21,7 @@ class Model {
         this.tasks.push(task)
     }
 
-    defineStrikeDate(strikeDate) {
-        if (isNaN(new Date(strikeDate))) {
-            throw new SyntaxError("Date format is incorrect")
-        } else if (!(new Date(strikeDate) > new Date())) {
-            throw new RangeError("Specify an upcoming date")
-        } else {
-            return new Date(strikeDate)
-        }
-    }
+    // Adds a single reminder to a dashboard
 
     addReminder(description, strikeDate, priority) {
         const reminder = {
@@ -40,6 +36,8 @@ class Model {
         this.reminders.push(reminder)
     }
 
+    // Deletes one or many tasks from a dashboard
+
     deleteTasks(...ids) {
         this.tasks = this.tasks.filter(task => !ids.includes(task.id))
 
@@ -52,6 +50,8 @@ class Model {
             isCompleted: task.isCompleted
         }})
     }
+
+    // Deletes one or many reminders from a dashboard
 
     deleteReminders(...ids) {
         this.reminders = this.reminders.filter(reminder => !ids.includes(reminder.id))
@@ -67,6 +67,7 @@ class Model {
         }})
     }
   
+    // Changes the params of a task object
 
     editTask(id, params) {
         this.tasks = this.tasks.map(task => task.id === id ?
@@ -77,6 +78,8 @@ class Model {
             place: params.hasOwnProperty("place") ? params.place : task.place,
         } : task)
     }
+
+    // Changes the params of a reminder object
 
     editReminder(id, params) {
         this.reminders = this.reminders.map(reminder => reminder.id === id ?
@@ -89,6 +92,19 @@ class Model {
         } : reminder)
     }
 
+    // A function that checks the validity of a specified strike date for a reminder
+
+    defineStrikeDate(strikeDate) {
+        if (isNaN(new Date(strikeDate))) {
+            throw new SyntaxError("Date format is incorrect")
+        } else if (!(new Date(strikeDate) > new Date())) {
+            throw new RangeError("Specify an upcoming date")
+        } else {
+            return new Date(strikeDate)
+        }
+    }
+
+    // Changes the status of a task (completed - not completed)
 
     toggleTask(id) {
         this.tasks = this.tasks.map(task => task.id === id ?
@@ -102,6 +118,8 @@ class Model {
             } : task)
     }
 
+    // Calculates the total workload across all tasks
+
     calculateTotalWorkload() {
         let totalWorkloadDuration = 0;
 
@@ -111,14 +129,17 @@ class Model {
         return totalWorkloadDuration;
     }
 
+    // Calculates the total workload across all tasks
+
     calculateRemainingTime(strikeDate) {
         let daysTimeDifference = (new Date(strikeDate) - new Date()) / (1000 * 3600 * 24)
         return `${Math.floor(daysTimeDifference)} days, ${Math.floor(daysTimeDifference % 1 * 24)} hours, ${Math.floor(daysTimeDifference % 1 * 24 % 1 * 60)} minutes`
     }
 
-    // Enable sorting of tasks based on the following criteria:
-    // id, description, workload, place, isCompleted
-   
+    /* Enable sorting of tasks based on the following criteria:
+    id, description, workload, place, isCompleted
+    */
+
     sortTasks(param) {
         switch(param) {
             case "id":
@@ -139,8 +160,9 @@ class Model {
         }
     }
 
-    // Enable sorting of reminders based on the following criteria:
-    // id, description, strikeDate, priority
+    /* Enables sorting of reminders based on the following criteria:
+    id, description, strikeDate, priority
+    */
 
     sortRemainders(param) {
         switch(param) {
@@ -159,9 +181,11 @@ class Model {
         }
     }
 
-    // Check out if the specified input can be found in the following fields of tasks array:
-    // id, description, strikeDate, priority.
-    // Not case-sensetive
+    /* Checks out if the specified input can be found in the following fields of tasks array:
+    id, description, strikeDate, priority.
+    
+    Not case-sensetive
+    */
 
     findInTasks(input) {
 
@@ -174,9 +198,11 @@ class Model {
             .map(field => field.id)
     }
 
-    // Check out if the specified input can be found in the following fields of reminders array:
-    // id, description, strikeDate, priority
-    // Not case-sensetive
+    /* Checks out if the specified input can be found in the following fields of reminders array:
+    id, description, strikeDate, priority
+
+    Not case-sensetive.
+    */
 
     findInReminders(input) {
         
@@ -191,6 +217,8 @@ class Model {
 
     
 }
+
+// To-do
 
 class View {
     constructor(model, view) {
@@ -209,14 +237,13 @@ class View {
         const element = document.querySelector(selector)
 
         return element
-    }
-
-    
-
+    }    
 }
+
+// To-do
 
 class Controller {
 
 }
-
+// Instanciation of a Controller class 
 const app = new Controller(new Model, new View)
